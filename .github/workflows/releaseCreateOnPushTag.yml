@@ -1,0 +1,38 @@
+name: Release - create release and artifact - on push tag
+
+on:
+  push:
+    tags:
+      - v*.*.*
+
+# Jobs to be executed
+jobs:
+  build-deploy-artifact:
+    runs-on: Professiona-Services-LATAM-Ubuntu
+    container: tnascimento013/latam_salesforcedx_industries_orgdevmodebuilds:latest
+    environment: relbuild
+    steps:
+      - name: Installing missing CLIs / Plugins
+        run: echo "y" | sf plugins install sf-orgdevmode-builds
+
+      - name: Checkout source code
+        uses: Professiona-Services-LATAM/checkout@v3
+
+      - name: Extracting private key
+        run: 'echo "${{ secrets.JWT_KEY_NONPROD }}" > server.key'
+
+      - name: Running the build & deploy
+        run: sf builds deploy --buildfile manifest/buildfile.json --client-id ${{ vars.CLIENT_ID }} --instance-url ${{ vars.INSTANCE_URL }} --username ${{ vars.USERNAME }} --jwt-key-file server.key
+
+      - name: Setting git safe.directory
+        run: git config --global --add safe.directory '*'
+
+      - name: Archiving Repository
+        run: git archive -o ${{ github.event.repository.name }}-${{ github.ref_name }}.zip HEAD
+
+      - name: Upload Assets
+        uses: Professiona-Services-LATAM/action-gh-release@v0.1.15
+        env:
+          GITHUB_TOKEN: ${{ secrets.SVC_CLI_BOT_GITHUB_TOKEN }}
+        with:
+          files: ${{ github.event.repository.name }}-${{ github.ref_name }}.zip

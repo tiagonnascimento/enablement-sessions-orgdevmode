@@ -1,0 +1,25 @@
+name: Branch develop - on push
+
+on:
+  push:
+    branches:
+      - develop
+
+# Jobs to be executed
+jobs:
+  build-deploy:
+    runs-on: Professiona-Services-LATAM-Ubuntu
+    container: tnascimento013/latam_salesforcedx_industries_orgdevmodebuilds:latest
+    environment: qa
+    steps:
+      - name: Installing missing CLIs / Plugins
+        run: echo "y" | sf plugins install sf-orgdevmode-builds
+
+      - name: Checkout source code
+        uses: Professiona-Services-LATAM/checkout@v3
+
+      - name: Extracting private key
+        run: 'echo "${{ secrets.JWT_KEY_NONPROD }}" > server.key'
+
+      - name: Running the build & deploy
+        run: sf builds deploy --buildfile manifest/buildfile.json --client-id ${{ vars.CLIENT_ID }} --instance-url ${{ vars.INSTANCE_URL }} --username ${{ vars.USERNAME }} --jwt-key-file server.key

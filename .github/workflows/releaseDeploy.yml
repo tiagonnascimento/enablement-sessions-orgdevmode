@@ -1,0 +1,41 @@
+name: Release - deploy artifact
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Tag from where the artifact is going to be downloaded and used as base for the deploy
+        type: string
+        required: true
+      environment:
+        description: Environment that is going to be used
+        type: string
+        required: true
+
+# Jobs to be executed
+jobs:
+  build-deploy:
+    runs-on: Professiona-Services-LATAM-Ubuntu
+    container: tnascimento013/latam_salesforcedx_industries_orgdevmodebuilds:latest
+    environment: ${{ inputs.environment }}
+    steps:
+      - name: Installing missing CLIs / Plugins
+        run: echo "y" | sf plugins install sf-orgdevmode-builds
+
+      - name: Download Artifact
+        uses: Professiona-Services-LATAM/fetch-gh-release-asset@v1.1.1
+        with:
+          token: ${{ secrets.SVC_CLI_BOT_GITHUB_TOKEN }}
+          version: tags/${{ inputs.tag }}
+          file: ${{ github.event.repository.name }}-${{ inputs.tag }}.zip
+
+      - name: Unzip artifact
+        run: unzip ${{ github.event.repository.name }}-${{ inputs.tag }}.zip -d outputdir/
+
+      - name: Extracting private key
+        working-directory: ./outputdir/
+        run: 'echo "${{ secrets.JWT_KEY_NONPROD }}" > server.key'
+
+      - name: Running the build & deploy
+        working-directory: ./outputdir/
+        run: sf builds deploy --buildfile manifest/buildfile.json --client-id ${{ vars.CLIENT_ID }} --instance-url ${{ vars.INSTANCE_URL }} --username ${{ vars.USERNAME }} --jwt-key-file server.key
