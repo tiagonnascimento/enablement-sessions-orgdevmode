@@ -15,7 +15,7 @@ on:
 # Jobs to be executed
 jobs:
   build-deploy:
-    runs-on: Professiona-Services-LATAM-Ubuntu
+    runs-on: ubuntu-latest
     container: tnascimento013/latam_salesforcedx_industries_orgdevmodebuilds:latest
     environment: ${{ inputs.environment }}
     steps:
@@ -23,7 +23,7 @@ jobs:
         run: echo "y" | sf plugins install sf-orgdevmode-builds
 
       - name: Download Artifact
-        uses: Professiona-Services-LATAM/fetch-gh-release-asset@v1.1.1
+        uses: dsaltares/fetch-gh-release-asset@v1.1.1
         with:
           token: ${{ secrets.SVC_CLI_BOT_GITHUB_TOKEN }}
           version: tags/${{ inputs.tag }}

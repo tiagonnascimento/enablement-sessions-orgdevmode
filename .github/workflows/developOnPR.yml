@@ -8,7 +8,7 @@ on:
 # Jobs to be executed
 jobs:
   build-deploy:
-    runs-on: Professiona-Services-LATAM-Ubuntu
+    runs-on: ubuntu-latest
     container: tnascimento013/latam_salesforcedx_industries_orgdevmodebuilds:latest
     environment: build
     steps:
@@ -16,7 +16,7 @@ jobs:
         run: echo "y" | sf plugins install sf-orgdevmode-builds
 
       - name: Checkout source code
-        uses: Professiona-Services-LATAM/checkout@v3
+        uses: actions/checkout@v3
 
       - name: Extracting private key
         run: 'echo "${{ secrets.JWT_KEY_NONPROD }}" > server.key'
