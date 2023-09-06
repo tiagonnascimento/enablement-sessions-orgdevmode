@@ -5,6 +5,7 @@
 		<name>CustomApplication</name>
 	</types>
 	<types>
+		<members>Account.document_Id__c</members>
 		<members>Opportunity.Competitor_Details__c</members>
 		<members>Opportunity.Competitor__c</members>
 		<name>CustomField</name>
@@ -18,6 +19,7 @@
 		<name>CustomTab</name>
 	</types>
 	<types>
+		<members>Account_Record_Page</members>
 		<members>Opportunity_Record_Page</members>
 		<name>FlexiPage</name>
 	</types>
@@ -29,5 +31,6 @@
 		<members>Opportunity-Opportunity Layout</members>
 		<name>Layout</name>
 	</types>
+
 	<version>55.0</version>
 </Package>
