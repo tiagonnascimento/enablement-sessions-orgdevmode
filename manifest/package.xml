@@ -18,7 +18,6 @@
 		<name>CustomTab</name>
 	</types>
 	<types>
-		<members>LightningSales_UtilityBar</members>
 		<members>Opportunity_Record_Page</members>
 		<name>FlexiPage</name>
 	</types>
