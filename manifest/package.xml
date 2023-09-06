@@ -5,6 +5,11 @@
 		<name>CustomApplication</name>
 	</types>
 	<types>
+		<members>Opportunity.Competitor_Details__c</members>
+		<members>Opportunity.Competitor__c</members>
+		<name>CustomField</name>
+	</types>
+	<types>
 		<members>Competitor__c</members>
 		<name>CustomObject</name>
 	</types>
