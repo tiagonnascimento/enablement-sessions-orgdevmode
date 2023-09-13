@@ -6,11 +6,32 @@
 	</types>
 	<types>
 		<members>Account.document_Id__c</members>
+		<members>Opportunity.Competitor_Details__c</members>
+		<members>Opportunity.Competitor__c</members>
 		<name>CustomField</name>
 	</types>
 	<types>
+		<members>Competitor__c</members>
+		<name>CustomObject</name>
+	</types>
+	<types>
+		<members>Competitor__c</members>
+		<name>CustomTab</name>
+	</types>
+	<types>
 		<members>Account_Record_Page</members>
+		<members>LightningSales_UtilityBar</members>
+		<members>Opportunity_Record_Page</members>
 		<name>FlexiPage</name>
 	</types>
+	<types>
+		<members>Competitor__c-Competitor Layout</members>
+		<members>Opportunity-Opportunity %28Marketing%29 Layout</members>
+		<members>Opportunity-Opportunity %28Sales%29 Layout</members>
+		<members>Opportunity-Opportunity %28Support%29 Layout</members>
+		<members>Opportunity-Opportunity Layout</members>
+		<name>Layout</name>
+	</types>
+
 	<version>55.0</version>
 </Package>
