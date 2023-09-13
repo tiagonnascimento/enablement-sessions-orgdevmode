@@ -20,6 +20,7 @@
 	</types>
 	<types>
 		<members>Account_Record_Page</members>
+		<members>LightningSales_UtilityBar</members>
 		<members>Opportunity_Record_Page</members>
 		<name>FlexiPage</name>
 	</types>
