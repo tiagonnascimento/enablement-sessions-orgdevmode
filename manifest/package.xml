@@ -32,6 +32,9 @@
 		<members>Opportunity-Opportunity Layout</members>
 		<name>Layout</name>
 	</types>
-
+	<types>
+		<members>PES_Account_Opportunity_Management</members>
+		<name>PermissionSet</name>
+	</types>
 	<version>55.0</version>
 </Package>
