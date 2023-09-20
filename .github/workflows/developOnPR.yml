@@ -15,6 +15,9 @@ jobs:
       - name: Installing missing CLIs / Plugins
         run: echo "y" | sf plugins install sf-orgdevmode-builds
 
+      - name: Installing Puppeteer
+        run: npm install puppeteer -g
+
       - name: Checkout source code
         uses: actions/checkout@v3
 
