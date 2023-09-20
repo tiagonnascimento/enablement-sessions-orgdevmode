@@ -7,7 +7,7 @@
 	<types>
 		<members>Account.document_Id__c</members>
 		<members>Opportunity.Competitor_Details__c</members>
-		<members>Opportunity.Competitor__c</members>
+		<members>Opportunity.MainCompetitor__c</members>
 		<name>CustomField</name>
 	</types>
 	<types>
