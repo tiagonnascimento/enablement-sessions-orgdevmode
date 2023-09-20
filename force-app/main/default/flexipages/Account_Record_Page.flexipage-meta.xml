@@ -277,6 +277,12 @@
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
+                <componentName>cfEnablementAccountHello</componentName>
+                <identifier>c_cfEnablementAccountHello</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
                 <componentInstanceProperties>
                     <name>tabs</name>
                     <value>sidebartabs</value>
