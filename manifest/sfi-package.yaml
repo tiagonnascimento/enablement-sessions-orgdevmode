@@ -10,3 +10,4 @@ continueAfterError: true
 useAllRelationships: false
 supportHeadersOnly: true
 supportForceDeploy: true
+npmAuthKey: Y3VzdG9tZXJfYmFuY29fZGVsX2VzdGFkb19kZV9jaGlsZTpQZkFhYlJaQmhyNU1DMVRY
