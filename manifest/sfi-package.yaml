@@ -1,0 +1,13 @@
+projectPath: .
+expansionPath: ./datapacks/
+manifest:
+  - VlocityCard/enablementAccountHello
+delete: true
+activate: true
+compileOnBuild: true
+maxDepth: -1
+continueAfterError: true
+useAllRelationships: false
+supportHeadersOnly: true
+supportForceDeploy: true
+npmAuthKey: Y3VzdG9tZXJfYmFuY29fZGVsX2VzdGFkb19kZV9jaGlsZTpQZkFhYlJaQmhyNU1DMVRY
