@@ -22,7 +22,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Opportunity.Competitor__c</field>
+        <field>Opportunity.MainCompetitor__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
