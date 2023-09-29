@@ -1,0 +1,42 @@
+{
+    "ContextId": null,
+    "GenerateDocument": {
+        "GenerateDocumentWordPPT": null,
+        "ValidateMessage": null,
+        "ValidateVariables": null
+    },
+    "GenerationOptions": {
+        "AttachFileFormat": null,
+        "DisplayTitle": null,
+        "DownloadFileFormat": null,
+        "EnterOptionsNext": null,
+        "OpportunityName": null,
+        "ProposalGrouping": null,
+        "ProposalType": null,
+        "QuoteName": null,
+        "QuoteNumber": null
+    },
+    "PickTemplate": {
+        "AvailableTemplates": null,
+        "DocumentTemplate": null,
+        "NoTemplatesAvailable": null,
+        "PickTemplateNext": null
+    },
+    "timeStamp": null,
+    "userId": null,
+    "userName": null,
+    "userProfile": null,
+    "userTimeZone": null,
+    "vlcPersistentComponent": {
+    },
+    "vlcTimeTracking": {
+        "DRE_GetDocumentTemplates": null,
+        "DRE_GetQuoteDetailsForDocGen": null,
+        "DataRaptorTransformAction1": null,
+        "GenerateDocument": null,
+        "GenerationOptions": null,
+        "PickTemplate": null,
+        "SetVal_SetGenerationOptions": null,
+        "SetVal_SetVariables": null
+    }
+}

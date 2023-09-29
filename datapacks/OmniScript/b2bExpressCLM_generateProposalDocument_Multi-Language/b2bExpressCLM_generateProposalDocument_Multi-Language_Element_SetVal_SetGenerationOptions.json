@@ -1,0 +1,45 @@
+{
+    "%vlocity_namespace%__Active__c": true,
+    "%vlocity_namespace%__InternalNotes__c": "Optional settings that can be changed to customize document generation",
+    "%vlocity_namespace%__OmniScriptId__c": {
+        "Name": "generateProposalDocument",
+        "VlocityDataPackType": "VlocityMatchingKeyObject",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/b2bExpressCLM/generateProposalDocument/Multi-Language",
+        "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
+    },
+    "%vlocity_namespace%__PropertySet__c": {
+        "HTMLTemplateId": "",
+        "controlWidth": 12,
+        "disOnTplt": false,
+        "elementValueMap": {
+            "attachFileFormat": "=%GenerationOptions:AttachFileFormat%",
+            "contextId": "=%GenerationOptions:ObjectId%",
+            "docGenerationMechanism": "=\"VlocityClientSide\"",
+            "documentType": "=%GenerationOptions:DownloadFileFormat%",
+            "pdfGenerationSource": "=\"VlocityClientSide\"",
+            "pdfViewer": "=\"None\"",
+            "templateId": "=IF(%AvailableTemplates%=1,%DocumentTemplates|1:Id%,%PickTemplate:DocumentTemplate|1:Id%)",
+            "templateType": "=%TemplateType%",
+            "useTemplateDRExtract": "=\"Yes\""
+        },
+        "label": null,
+        "message": {
+        },
+        "pubsub": false,
+        "show": null,
+        "showPersistentComponent": [
+            false,
+            false
+        ],
+        "ssm": false,
+        "wpm": false
+    },
+    "%vlocity_namespace%__ReusableOmniScript__c": false,
+    "%vlocity_namespace%__Type__c": "Set Values",
+    "IsLocked": false,
+    "MayEdit": true,
+    "Name": "SetVal_SetGenerationOptions",
+    "VlocityDataPackType": "SObject",
+    "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/b2bExpressCLM/generateProposalDocument/Multi-Language/SetVal_SetGenerationOptions"
+}

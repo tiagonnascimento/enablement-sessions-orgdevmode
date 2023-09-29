@@ -1,0 +1,27 @@
+<div class="radio-link-template">
+    <ng-form name='loopform'
+             id="{{::control.name + '|' + $index}}"
+             ng-repeat='control in child.eleArray'
+             class='slds-form-element' 
+             align='center'>
+
+        <div class="nds-form-element">
+            <div class="nds-form-element__legend nds-form-element__label nds-form-element__control-help" for="{{::control.name + '|' + $index}}">
+                <span>{{::control.propSetMap.label}}</span>
+                <span class='nds-required'
+                    ng-if='control.req'>*
+                </span>
+
+                <a class="nds-tooltip_container" vlc-slds-tool-tip="test" nubbin-direction="auto top-left" ng-if="control.propSetMap.help" ng-include="'vlcHelptextInfoIcon.html'"></a>
+                <div vlc-slds-include="vlcLabelController.html"></div>
+            </div>
+            <div class="nds-grid nds-align_absolute-center nds-wrap nds-gutters">      
+                <label ng-repeat='option in getOptions(control, this) track by option.name' ng-class="{'nds-button_brand': control.response==option.name}" class="nds-button-neutral radio-button-link-center nds-align_absolute-center nds-col nds-size_1-of-3">
+                    <input id='{{::control.name}}' ng-disabled='control.ro' ng-required='!control.response && control.req' type='radio' ng-init='init(this, control)' ng-value='option.name' ng-model='control.response' ng-change='aggregate(this, control.index, control.indexInParent, true, -1);' vlc-slds-val-checker="response" ng-click='autoAdvance(option.autoAdv);' style="position: absolute; opacity: 0; cursor: pointer; height: 0; width: 0;"/>
+                    <span class="text-link-color">{{option.value}}</span>
+                </label>
+            </div>
+        </div>
+        <div class="nds-has-error" ng-include="::errHTMLId"></div>
+    </ng-form>
+</div>
