@@ -1,0 +1,46 @@
+{
+    "%vlocity_namespace%__Active__c": true,
+    "%vlocity_namespace%__OmniScriptId__c": {
+        "Name": "B2BExpress_TemplateConfigData",
+        "VlocityDataPackType": "VlocityMatchingKeyObject",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/b2bExpress/TemplateConfigData/Procedure",
+        "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
+    },
+    "%vlocity_namespace%__ParentElementId__c": {
+        "%vlocity_namespace%__OmniScriptId__c": {
+            "Name": "B2BExpress_TemplateConfigData",
+            "VlocityDataPackType": "VlocityMatchingKeyObject",
+            "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__OmniScript__c/b2bExpress/TemplateConfigData/Procedure",
+            "VlocityRecordSObjectType": "%vlocity_namespace%__OmniScript__c"
+        },
+        "Name": "TemplateConfigDataSourceVAR",
+        "VlocityDataPackType": "VlocityMatchingKeyObject",
+        "VlocityMatchingRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/b2bExpress/TemplateConfigData/Procedure/TemplateConfigDataSourceVAR",
+        "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c"
+    },
+    "%vlocity_namespace%__ParentElementName__c": "TemplateConfigDataSourceVAR",
+    "%vlocity_namespace%__ParentElementType__c": "Loop Block",
+    "%vlocity_namespace%__PropertySet__c": {
+        "actionMessage": "",
+        "chainOnStep": false,
+        "disOnTplt": false,
+        "elementValueMap": {
+            "templateName": "%RES:VlocityDocumentTemplate%"
+        },
+        "executionConditionalFormula": "=( (%RES:TemplateSubtype% == %TemplateSubtype%) && (%RES:TemplateCategory% == %TemplateCategory%) && (%RES:AggregationLevel% == %AggregationLevel%) && (%RES:TemplateType% == %TemplateType%))",
+        "failOnStepError": true,
+        "failureConditionalFormula": "",
+        "label": "SetValues3",
+        "responseJSONNode": "templateName",
+        "responseJSONPath": "templateName",
+        "show": null
+    },
+    "%vlocity_namespace%__ReusableOmniScript__c": false,
+    "%vlocity_namespace%__Type__c": "Set Values",
+    "IsLocked": false,
+    "MayEdit": true,
+    "Name": "selectedconfigdata",
+    "VlocityDataPackType": "SObject",
+    "VlocityRecordSObjectType": "%vlocity_namespace%__Element__c",
+    "VlocityRecordSourceKey": "%vlocity_namespace%__Element__c/%vlocity_namespace%__OmniScript__c/b2bExpress/TemplateConfigData/Procedure/selectedconfigdata"
+}

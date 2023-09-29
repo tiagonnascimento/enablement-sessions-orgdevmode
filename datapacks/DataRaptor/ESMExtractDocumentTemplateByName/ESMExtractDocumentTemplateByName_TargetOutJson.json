@@ -1,0 +1,14 @@
+{
+    "DocumentTemplate": {
+        "Id": "Text",
+        "Name": "Text",
+        "TemplateType": "Text",
+        "VersionNumber": "Text"
+    },
+    "DocumentTemplates": {
+        "Id": "Text",
+        "Name": "Text",
+        "TemplateType": "Text",
+        "VersionNumber": "Text"
+    }
+}

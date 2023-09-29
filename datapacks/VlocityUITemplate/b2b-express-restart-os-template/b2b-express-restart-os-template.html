@@ -1,0 +1,24 @@
+<div class="radio-link-template" ng-controller="RestartOSController">
+  <div ng-repeat='control in child.eleArray' class='col-md-{{::control.propSetMap.controlWidth}} col-sm-{{::control.propSetMap.controlWidth}}'>
+    <div class="nds-col_padded nds-size_1-of-1 nds-m-top_medium nds-m-bottom_xx-large">
+      <div class="nds-grid nds-wrap vlc-slds-button_footer nds-form-element__control-help">
+        <div class="nds-wrap">
+          <div class="nds-align_absolute-center nds-p-around_xx-small">
+            <div class='vlc-no-label'> 
+              <button class="nds-button nds-button_neutral nds-p-around_xx-small nds-size_1-of-1 nds-medium-size_12-of-12" 
+                      type="button" 
+                      title='{{::control.propSetMap.label}}' 
+                      ng-click='aggregate(this, control.index, control.indexInParent, true, -1); restartOS();' 
+                      vlc-animation-slider="test" 
+                      reverse="true" 
+                      ng-style="{'border':'none'}" 
+                      style="border: none;">
+                        {{::control.propSetMap.label}}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,46 @@
+.radio-link-template {
+
+    padding-bottom: 30px;
+    
+    .text-link-color {
+        color: #333 !important;
+    }
+    
+    .radio-button-link-center {
+        font-size: 12px;
+        font-weight: 200;
+        border-radius: 3px;
+        border: 1px solid #ccc;
+        // display: block;
+        margin: 4px 4px;
+        // vertical-align: middle;
+        // text-align: center;
+        // line-height:24px; 
+        height: 45px;
+        max-width: 25%;
+        cursor: pointer;
+        
+        &.nds-button_brand {
+            // background-color: #0070d2;
+            
+            .text-link-color {
+                color: #fff !important;
+            }
+        }
+    }
+}
+.nds-size_1-of-3 {
+    width: 30%;
+    -ms-flex: 0 0 25%;
+    flex: 0 0 24%;
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis: 24%;
+    max-width: 25%;
+}
+//For small screens text size is reduced
+@media only screen and (max-width: 800px) {
+  .text-link-color {
+    font-size: 60%;
+  }
+}

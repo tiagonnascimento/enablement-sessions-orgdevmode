@@ -1,7 +1,20 @@
 projectPath: .
 expansionPath: ./datapacks/
 manifest:
+  - DataRaptor/ESMExtractDocumentTemplateByName
+  - DataRaptor/ESMGetAccOpttyDetailsDCT
+  - DataRaptor/ESMGetOpportunityDetails
+  - DataRaptor/ESMInitDocumentTemplates
+  - DataRaptor/GetQuoteDetailsDocGen
+  - DataRaptor/GetRecordTypeId
+  - IntegrationProcedure/b2bExpress_TemplateConfigData
+  - OmniScript/b2bExpress_CreateQuote_Multi-Language
+  - OmniScript/b2bExpressCLM_generateProposalDocument_Multi-Language
   - VlocityCard/enablementAccountHello
+  - VlocityUITemplate/b2b-express-object-document-creation-docx-template
+  - VlocityUITemplate/b2b-express-radio-button-as-link
+  - VlocityUITemplate/b2b-express-restart-os-template
+  - VlocityUITemplate/b2b-express-selectable-items-clm-templates
 delete: true
 activate: true
 compileOnBuild: true
