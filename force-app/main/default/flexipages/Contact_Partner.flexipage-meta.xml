@@ -665,20 +665,6 @@
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
-                    <name>channelSettings</name>
-                    <value>{&quot;LIVE_AGENT&quot;:{&quot;topFlows&quot;:[{&quot;devName&quot;:&quot;Close_Credit_Account_TEST&quot;}],&quot;middleFlows&quot;:[],&quot;bottomFlows&quot;:[],&quot;autoPop&quot;:false},&quot;OPEN_CTI&quot;:{&quot;topFlows&quot;:[{&quot;devName&quot;:&quot;Close_Credit_Account_TEST&quot;}],&quot;middleFlows&quot;:[],&quot;bottomFlows&quot;:[],&quot;autoPop&quot;:false},&quot;Other&quot;:{&quot;topFlows&quot;:[{&quot;devName&quot;:&quot;Close_Credit_Account_TEST&quot;}],&quot;middleFlows&quot;:[],&quot;bottomFlows&quot;:[],&quot;autoPop&quot;:false}}</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>recordActionDeployment</name>
-                    <value>Contact_Partner_deployment</value>
-                </componentInstanceProperties>
-                <componentName>lbpm:actionList</componentName>
-                <identifier>lbpm_actionList</identifier>
-            </componentInstance>
-        </itemInstances>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
                     <name>maxEARContainerHeight</name>
                     <value>500</value>
                 </componentInstanceProperties>
