@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Open_Address_in_Google_Maps__c</fullName>
+    <externalId>false</externalId>
+    <formula>HYPERLINK(&quot;http://maps.google.com?q=&quot; &amp;  MailingStreet  &amp; &quot;%20&quot; &amp;  MailingCity  &amp; &quot;%20&quot; &amp;  MailingState  &amp; &quot;%20&quot; &amp;  MailingPostalCode ,IMAGE(&quot;/servlet/servlet.FileDownload?file=0156g0000014W4I&quot;, &quot;Map Address in Google&quot;))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Open Address in Google Maps</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

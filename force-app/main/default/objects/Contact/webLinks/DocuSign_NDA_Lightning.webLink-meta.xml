@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DocuSign_NDA_Lightning</fullName>
+    <availability>online</availability>
+    <description>3 Click Demo for DocuSign on Contact</description>
+    <displayType>button</displayType>
+    <linkType>javascript</linkType>
+    <masterLabel>DocuSign NDA Lightning</masterLabel>
+    <openType>onClickJavaScript</openType>
+    <protected>false</protected>
+    <url>var rndnum = Math.floor(Math.random()*1000000); 
+
+window.open(&apos;https://demo.docusign.net/Member/PowerFormSigning.aspx?PowerFormId=26f573a5-8e5d-448e-abbd-cdcb54ffe1ca&amp;Signer_Email=any.signer%2b{!YEAR(TODAY())}{!MONTH(TODAY())}{!DAY(TODAY())}{!HOUR(TIMENOW())}{!MINUTE(TIMENOW())}{!SECOND(TIMENOW())}{!MILLISECOND(TIMENOW())}@live.com&amp;Signer_UserName={!Contact.FirstName}+{!Contact.LastName}&amp;DSFSSourceObjectId={!Contact.Id}&amp;Signer_Title={!Contact.Title}&amp;Signer_Company={!Account.Name}&amp;Sender_Email={!$User.Email}&amp;Sender_Company={!$User.CompanyName}&amp;Sender_Name={!$User.FirstName}+{!$User.LastName}&amp;%23%23SFContact={!Contact.Id});</url>
+</WebLink>

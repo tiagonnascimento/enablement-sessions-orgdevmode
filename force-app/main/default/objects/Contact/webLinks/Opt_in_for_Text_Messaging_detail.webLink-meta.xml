@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Opt_in_for_Text_Messaging_detail</fullName>
+    <availability>online</availability>
+    <description>Opt in for LiveMessage texts</description>
+    <displayType>button</displayType>
+    <linkType>javascript</linkType>
+    <masterLabel>Opt in for Text Messaging</masterLabel>
+    <openType>onClickJavaScript</openType>
+    <protected>false</protected>
+    <url>{!REQUIRESCRIPT(&quot;/soap/ajax/10.0/connection.js&quot;)}
+{!REQUIRESCRIPT(&quot;/soap/ajax/14.0/apex.js&quot;)}
+{!REQUIRESCRIPT(&apos;/support/console/31.0/integration.js&apos;)};
+
+var recordId = window.location.pathname.substring(1);
+var returnURL = &apos;/&apos; + recordId;
+
+var urlStart = &apos;https://&apos;+window.location.hostname+&apos;/apex/LiveText__LiveTextOptinStatusPage?records=&apos;+recordId+&apos;&amp;retURL=&apos;+returnURL;
+
+if(sforce.console.isInConsole()) {
+sforce.console.openPrimaryTab(null, urlStart + &apos;&amp;inConsole=yes&amp;optType=1&apos;, true, &apos;Opt-in for Text Messages&apos;);
+}else{
+window.top.location.href = urlStart + &apos;&amp;inConsole=no&amp;optType=1&apos;;
+}</url>
+</WebLink>
