@@ -6,6 +6,7 @@
 	</types>
 	<types>
 		<members>Account.document_Id__c</members>
+		<members>Contact.Eat_Nuts__c</members>
 		<members>Opportunity.Competitor_Details__c</members>
 		<members>Opportunity.MainCompetitor__c</members>
 		<name>CustomField</name>
@@ -22,6 +23,7 @@
 		<members>Account_Record_Page</members>
 		<members>LightningSales_UtilityBar</members>
 		<members>Opportunity_Record_Page</members>
+		<members>Contact_Partner</members>
 		<name>FlexiPage</name>
 	</types>
 	<types>
