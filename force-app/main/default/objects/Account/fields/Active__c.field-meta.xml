@@ -16,9 +16,9 @@
             </value>
             <value>
                 <fullName>Yes</fullName>
-                <default>false</default>
+                <default>true</default>
                 <label>Yes</label>
             </value>
-        </valueSetDefinition>
+        </valueSetDefinition>    
     </valueSet>
 </CustomField>
