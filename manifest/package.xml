@@ -5,6 +5,10 @@
 		<name>CustomApplication</name>
 	</types>
 	<types>
+		<members>Account.document_Id__c</members>
+		<members>Contact.Eat_Nuts__c</members>
+		<members>Opportunity.Competitor_Details__c</members>
+		<members>Opportunity.MainCompetitor__c</members>
 		<members>Account.Active__c</members>
 		<members>Account.SLA__c</members>
 		<name>CustomField</name>
