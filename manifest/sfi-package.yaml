@@ -5,6 +5,7 @@ manifest:
   - DataRaptor/samplePostXformWeather
   - IntegrationProcedure/sample_getWeatherForecast
   - VlocityCard/enablementAccountHello
+  - VlocityCard/sampleWeatherForecast
   - VlocityCard/sampleWeather
 delete: true
 activate: true
