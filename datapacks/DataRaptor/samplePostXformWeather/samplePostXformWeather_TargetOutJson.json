@@ -1,0 +1,42 @@
+{
+    "Current": {
+        "CityState": "Schenectady, New York",
+        "Condition": "Heavy Snow",
+        "TempC": -2.5,
+        "TempF": 27.5
+    },
+    "CurrentIcon": "www.weatherbit.io/static/img/icons/s03d.png",
+    "Forecast": [
+        {
+            "Condition": "Heavy Snow",
+            "Date": "2019-01-26",
+            "HiLoTempC": "-0.8/-5.7",
+            "HiLoTempF": "30.5/21.7"
+        },
+        {
+            "Condition": "Light Snow",
+            "Date": "2019-01-27",
+            "HiLoTempC": "-0.2/-5.1",
+            "HiLoTempF": "31.7/22.8"
+        },
+        {
+            "Condition": "Flurries",
+            "Date": "2019-01-28",
+            "HiLoTempC": "-0.6/-7.8",
+            "HiLoTempF": "31.0/18.7"
+        },
+        {
+            "Condition": "Clear sky",
+            "Date": "2019-01-29",
+            "HiLoTempC": "-3.7/-7.7",
+            "HiLoTempF": "25.3/18.1"
+        },
+        {
+            "Condition": "Clear sky",
+            "Date": "2019-01-30",
+            "HiLoTempC": "-4.3/-6.8",
+            "HiLoTempF": "24.2/19.7"
+        }
+    ],
+    "ForecastIcon": "www.weatherbit.io/static/img/icons/s01d.png"
+}
