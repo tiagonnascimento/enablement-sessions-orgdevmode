@@ -1,0 +1,40 @@
+{
+    "%vlocity_namespace%__Author__c": "VU",
+    "%vlocity_namespace%__CardType__c": "flex",
+    "%vlocity_namespace%__Datasource__c": {
+        "contextVariables": [
+            {
+                "id": 7,
+                "name": "recordId",
+                "val": "0015e0000039li3AAA"
+            }
+        ],
+        "orderBy": {
+            "isReverse": false,
+            "name": ""
+        },
+        "type": "IntegrationProcedures",
+        "value": {
+            "inputMap": {
+                "AccountId": "{recordId}",
+                "Days": "5"
+            },
+            "ipMethod": "team_getWeatherForecast",
+            "resultVar": "[\"Forecast\"]",
+            "vlocityAsync": false
+        }
+    },
+    "%vlocity_namespace%__Definition__c": "sampleWeatherForecast.json",
+    "%vlocity_namespace%__Description__c": "",
+    "%vlocity_namespace%__GlobalKey__c": "sampleWeatherForecast/VU/1/1607971324277",
+    "%vlocity_namespace%__IsChildCard__c": true,
+    "%vlocity_namespace%__ParentID__c": "teamWeatherForecast/VU/1/1607652584913",
+    "%vlocity_namespace%__SampleData__c": "{\"Forecast\":[{\"Date\":\"2021-01-26\",\"Condition\":\"Heavy Snow\",\"HiLoTempF\":\"30.5/21.7\",\"HiLoTempC\":\"-0.8/-5.7\"},{\"Date\":\"2021-01-27\",\"Condition\":\"Light Snow\",\"HiLoTempF\":\"31.7/22.8\",\"HiLoTempC\":\"-0.2/-5.1\"},{\"HiLoTempF\":\"31.0/18.7\",\"Date\":\"2021-01-28\",\"Condition\":\"Flurries\",\"HiLoTempC\":\"-0.6/-7.8\"},{\"HiLoTempF\":\"25.3/18.1\",\"Date\":\"2021-01-29\",\"Condition\":\"Clear sky\",\"HiLoTempC\":\"-3.7/-7.7\"},{\"HiLoTempF\":\"24.2/19.7\",\"Date\":\"2021-01-30\",\"Condition\":\"Clear sky\",\"HiLoTempC\":\"-4.3/-6.8\"}],\"Current\":{\"Condition\":\"Heavy Snow\",\"CityState\":\"Schenectady, New York\",\"TempF\":27.5,\"TempC\":-2.5},\"CurrentIcon\":\"www.weatherbit.io/static/img/icons/s03d.png\",\"ForecastIcon\":\"www.weatherbit.io/static/img/icons/s01d.png\"}",
+    "%vlocity_namespace%__Styles__c": "",
+    "%vlocity_namespace%__Type__c": "",
+    "%vlocity_namespace%__Version__c": 1,
+    "Name": "sampleWeatherForecast",
+    "VlocityDataPackType": "SObject",
+    "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityCard__c",
+    "VlocityRecordSourceKey": "%vlocity_namespace%__VlocityCard__c/sampleWeatherForecast"
+}
