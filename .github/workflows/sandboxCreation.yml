@@ -33,11 +33,11 @@ on:
         type: string
         required: false
       connectedApp:
-        description: API name for the connected app to be retrieved so the consumer key can be logged directly on the job - this is just used to facilitate the pipeline configuration if there sandbox needs to be connected by the CI server.
+        description: API name for the connected app to be retrieved so the consumer key can be logged directly on the job - this is just used to facilitate the pipeline configuration if there sandbox needs to be connected by the CI server
         type: string
         required: false
       defaultDirectory: 
-        description: Defatul directory as per sfdx-project.json - to be used to retrieve the consumer key to be used to save the connected app metadata retrieved - this will be used only when connectedAppToRetrieve were informed
+        description: Defatul directory as per sfdx-project.json - to be used to log the connected app consumer key
         type: string
         default: force-app
         required: false
