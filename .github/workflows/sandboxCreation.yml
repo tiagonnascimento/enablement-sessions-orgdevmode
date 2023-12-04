@@ -1,0 +1,65 @@
+name: Sandbox creation
+
+on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: Reference that will be checkout to support post creation steps
+        type: string
+        required: true
+      sandboxName: 
+        description: Name of the sandbox to be created
+        type: string
+        required: true
+      licenseType:
+        description: Type of sandbox license. Could be Developer, Developer_Pro, Partial, and Full
+        type: choice
+        required: true
+        options:
+        - Developer
+        - Developer_Pro
+        - Partial
+        - Full
+      email:
+        description: Email for the Sys Admin user 
+        type: string
+        required: true
+      wait:
+        description: Wait time for sandbox creation
+        default: 30
+        type: string
+      buildfile:
+        description: Path to the buildfile.json configured to run after sandbox creation - to automate post creation steps
+        type: string
+        required: false
+
+# Jobs to be executed
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    container: tnascimento013/latam_salesforcedx_industries_orgdevmodebuilds:latest
+    environment: prod
+    steps:
+      - name: Installing missing CLIs / Plugins
+        run: echo "y" | sf plugins install sf-orgdevmode-builds
+
+      - name: "Checkout source code"
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ inputs.ref }}
+
+      - name: Extracting private key
+        run: 'echo "${{ secrets.JWT_KEY_PROD }}" > server.key'
+
+      - name: Authenticate on production
+        run: sf org login jwt --instance-url http://login.salesforce.com --client-id ${{ vars.CLIENT_ID }} --username ${{ vars.USERNAME }} --jwt-key-file server.key --alias prodOrg
+
+      - name: Create sandbox
+        run: sf org create sandbox --name ${{ inputs.sandboxName }} --license-type ${{ inputs.licenseType }} --alias sdbx --target-org prodOrg --no-prompt --wait 30
+
+      - name: Create SysAdmin user
+        run: sf org create user email ${{ inputs.email }} generatepassword true username ${{ inputs.email }} --set-unique-username profileName='System Administrator' --target-org sdbx --set-alias sdbxSysAdmin 
+
+      - name: Post creation steps
+        if: github.event.inputs.buildfile != ''
+        run: sf builds deploy --buildfile ${{ inputs.buildfile }} --target-org sdbxSysAdmin
