@@ -52,7 +52,7 @@ jobs:
         run: 'echo "${{ secrets.JWT_KEY_PROD }}" > server.key'
 
       - name: Authenticate on production
-        run: sf org login jwt --instance-url http://login.salesforce.com --client-id ${{ vars.CLIENT_ID }} --username ${{ vars.USERNAME }} --jwt-key-file server.key --alias prodOrg
+        run: sf org login jwt --instance-url https://login.salesforce.com --client-id ${{ vars.CLIENT_ID }} --username ${{ vars.USERNAME }} --jwt-key-file server.key --alias prodOrg
 
       - name: Create sandbox
         run: sf org create sandbox --name ${{ inputs.sandboxName }} --license-type ${{ inputs.licenseType }} --alias sdbx --target-org prodOrg --no-prompt --wait ${{ inputs.wait }} --json
