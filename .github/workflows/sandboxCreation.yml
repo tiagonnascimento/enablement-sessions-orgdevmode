@@ -49,8 +49,9 @@ jobs:
     container: tnascimento013/latam_salesforcedx_industries_orgdevmodebuilds:latest
     environment: prod
     steps:
-      - name: Installing missing CLIs / Plugins
-        run: echo "y" | sf plugins install sf-orgdevmode-builds
+
+      - name: Set Directory as Safe 
+        run: git config --system --add safe.directory "$GITHUB_WORKSPACE"
 
       - name: "Checkout source code"
         uses: actions/checkout@v3
@@ -67,11 +68,13 @@ jobs:
         run: sf org create sandbox --name ${{ inputs.sandboxName }} --license-type ${{ inputs.licenseType }} --alias sdbx --target-org prodOrg --no-prompt --wait ${{ inputs.wait }} --json
 
       - name: Create SysAdmin user
-        run: sf org create user email ${{ inputs.email }} generatepassword true username ${{ inputs.email }} --set-unique-username profileName='System Administrator' --target-org sdbx --set-alias sdbxSysAdmin 
+        run: sf org create user email=${{ inputs.email }} generatepassword=true username=${{ inputs.email }} --set-unique-username profileName='System Administrator' --target-org sdbx --set-alias sdbxSysAdmin 
 
       - name: Post creation steps
         if: github.event.inputs.buildfile != ''
-        run: sf builds deploy --buildfile ${{ inputs.buildfile }} --target-org sdbxSysAdmin
+        run: |
+          export HOME=/root
+          sf builds deploy --buildfile ${{ inputs.buildfile }} --target-org sdbxSysAdmin
 
       - name: Retrieving Connected App Consumer Key
         if: github.event.inputs.connectedAppToRetrieve != ''
