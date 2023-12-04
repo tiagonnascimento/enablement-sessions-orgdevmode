@@ -32,6 +32,15 @@ on:
         description: Path to the buildfile.json configured to run after sandbox creation - to automate post creation steps
         type: string
         required: false
+      connectedAppToRetrieve:
+        description: API name for the connected app to retrieve the consumer key - this is just used to facilitate the pipeline configuration going forward if there is a connected app to be used by the CI server.
+        type: string
+        required: false
+      packageDirectory: 
+        description: Package directory to be used to save the connected app metadata retrieved - this will be used only when connectedAppToRetrieve were informed
+        type: string
+        default: force-app
+        required: false
 
 # Jobs to be executed
 jobs:
@@ -63,3 +72,9 @@ jobs:
       - name: Post creation steps
         if: github.event.inputs.buildfile != ''
         run: sf builds deploy --buildfile ${{ inputs.buildfile }} --target-org sdbxSysAdmin
+
+      - name: Retrieving Connected App Consumer Key
+        if: github.event.inputs.connectedAppToRetrieve != ''
+        run: |
+          sf project retrieve start --metadata=ConnectedApp:${{ inputs.connectedAppToRetrieve }} --target-org sdbxSysAdmin
+          cat ${{ inputs.packageDirectory }}/main/default/connectedApps/${{ inputs.connectedAppToRetrieve }}.connectedApp-meta.xml | grep consumerKey
