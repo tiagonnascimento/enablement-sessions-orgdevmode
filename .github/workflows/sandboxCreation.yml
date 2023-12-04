@@ -26,7 +26,7 @@ on:
         required: true
       wait:
         description: Wait time for sandbox creation
-        default: 30
+        default: 60
         type: string
       buildfile:
         description: Path to the buildfile.json configured to run after sandbox creation - to automate post creation steps
@@ -35,7 +35,7 @@ on:
 
 # Jobs to be executed
 jobs:
-  build-deploy:
+  sandbox-creation:
     runs-on: ubuntu-latest
     container: tnascimento013/latam_salesforcedx_industries_orgdevmodebuilds:latest
     environment: prod
@@ -55,7 +55,7 @@ jobs:
         run: sf org login jwt --instance-url http://login.salesforce.com --client-id ${{ vars.CLIENT_ID }} --username ${{ vars.USERNAME }} --jwt-key-file server.key --alias prodOrg
 
       - name: Create sandbox
-        run: sf org create sandbox --name ${{ inputs.sandboxName }} --license-type ${{ inputs.licenseType }} --alias sdbx --target-org prodOrg --no-prompt --wait 30
+        run: sf org create sandbox --name ${{ inputs.sandboxName }} --license-type ${{ inputs.licenseType }} --alias sdbx --target-org prodOrg --no-prompt --wait ${{ inputs.wait }} --json
 
       - name: Create SysAdmin user
         run: sf org create user email ${{ inputs.email }} generatepassword true username ${{ inputs.email }} --set-unique-username profileName='System Administrator' --target-org sdbx --set-alias sdbxSysAdmin 
