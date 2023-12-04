@@ -26,18 +26,18 @@ on:
         required: true
       wait:
         description: Wait time for sandbox creation
-        default: 60
+        default: 120
         type: string
       buildfile:
         description: Path to the buildfile.json configured to run after sandbox creation - to automate post creation steps
         type: string
         required: false
-      connectedAppToRetrieve:
-        description: API name for the connected app to retrieve the consumer key - this is just used to facilitate the pipeline configuration going forward if there is a connected app to be used by the CI server.
+      connectedApp:
+        description: API name for the connected app to be retrieved so the consumer key can be logged directly on the job - this is just used to facilitate the pipeline configuration if there sandbox needs to be connected by the CI server.
         type: string
         required: false
-      packageDirectory: 
-        description: Package directory to be used to save the connected app metadata retrieved - this will be used only when connectedAppToRetrieve were informed
+      defaultDirectory: 
+        description: Defatul directory as per sfdx-project.json - to be used to retrieve the consumer key to be used to save the connected app metadata retrieved - this will be used only when connectedAppToRetrieve were informed
         type: string
         default: force-app
         required: false
@@ -77,7 +77,7 @@ jobs:
           sf builds deploy --buildfile ${{ inputs.buildfile }} --target-org sdbxSysAdmin
 
       - name: Retrieving Connected App Consumer Key
-        if: github.event.inputs.connectedAppToRetrieve != ''
+        if: github.event.inputs.connectedApp != ''
         run: |
-          sf project retrieve start --metadata=ConnectedApp:${{ inputs.connectedAppToRetrieve }} --target-org sdbxSysAdmin
-          cat ${{ inputs.packageDirectory }}/main/default/connectedApps/${{ inputs.connectedAppToRetrieve }}.connectedApp-meta.xml | grep consumerKey
+          sf project retrieve start --metadata=ConnectedApp:${{ inputs.connectedApp }} --target-org sdbxSysAdmin
+          cat ${{ inputs.defaultDirectory }}/main/default/connectedApps/${{ inputs.connectedApp }}.connectedApp-meta.xml | grep consumerKey
