@@ -1,18 +1,6 @@
 {
   "builds": [
     {
-      "type": "datapack",
-      "manifestFile": "manifest/sfi-package.yaml"
-    },
-    {
-      "type": "metadata",
-      "manifestFile": "manifest/package.xml",
-      "testLevel": "NoTestRun",
-      "classPath": "force-app/main/default/classes",
-      "timeout": "33",
-      "ignoreWarnings": true
-    },
-    {
       "type": "anonymousApex",
       "apexScript": "scripts/apex/hello.apex"
     },
