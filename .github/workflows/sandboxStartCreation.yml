@@ -23,14 +23,28 @@ jobs:
     runs-on: ubuntu-latest
     container: tnascimento013/latam_salesforcedx_industries_orgdevmodebuilds:latest
     environment: prod
+    outputs: 
+      createExitCode: 
     steps:
 
       - name: Extracting private key
+        id: extractPrivateKey
         run: 'echo "${{ secrets.JWT_KEY_PROD }}" > server.key'
 
       - name: Authenticate on production
+        id: authProd
         run: sf org login jwt --instance-url https://login.salesforce.com --client-id ${{ vars.CLIENT_ID }} --username ${{ vars.USERNAME }} --jwt-key-file server.key --alias prodOrg
 
       - name: Start the process to create the sandbox
-        run: sf org create sandbox --name ${{ inputs.sandboxName }} --license-type ${{ inputs.licenseType }} --alias sdbx --target-org prodOrg --async --no-prompt
+        id: create
+        continue-on-error: true
+        run: |
+          set +e 
+          sf org create sandbox --name ${{ inputs.sandboxName }} --license-type ${{ inputs.licenseType }} --alias sdbx --target-org prodOrg --async --no-prompt
+          echo "exitcode=$?" >> $GITHUB_OUTPUT
+
+      - name: Check exit code to confirm successful call
+        id: check
+        if: ${{ steps.create.outputs.exitcode }} != '68'
+        run: exit 1
 
