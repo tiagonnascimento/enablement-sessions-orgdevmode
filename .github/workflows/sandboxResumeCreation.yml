@@ -58,8 +58,18 @@ jobs:
       - name: Resume sandbox creation process
         run: sf org resume sandbox --name ${{ inputs.sandboxName }} --target-org prodOrg --wait ${{ inputs.wait }}
 
+      - name: Getting credential for user creation
+        id: credential
+        run: echo "ACCESS_TOKEN=$(sf org display --target-org ${{ vars.USERNAME }}.${{ inputs.sandboxName }} | grep -Po '(?<=Access Token\s\s\s\s\s).*')"
+
+      - name: Getting instance url for user creation
+        id: instanceUrl
+        run: echo "INSTANCE_URL=$(sf org display --target-org ${{ vars.USERNAME }}.${{ inputs.sandboxName }} | grep -Po '(?<=Instance Url\s\s\s\s\s).*')"
+      
       - name: Create SysAdmin user
-        run: sf org create user email=${{ inputs.email }} generatepassword=true username=${{ inputs.email }} --set-unique-username profileName='System Administrator' --target-org ${{ vars.USERNAME }}.${{ inputs.sandboxName }} --set-alias sdbxSysAdmin 
+        run: |
+          echo ${{ steps.credential.outputs.ACCESS_TOKEN }}
+          echo ${{ steps.instanceUrl.outputs.INSTANCE_URL }}
 
       - name: Post creation steps
         if: github.event.inputs.buildfile != ''
