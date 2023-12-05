@@ -45,6 +45,6 @@ jobs:
 
       - name: Check exit code to confirm successful call
         id: check
-        if: ${{ steps.create.outputs.exitcode }} != '68'
+        if: ${{ steps.create.outputs.exitcode }} != 68
         run: exit 1
 
