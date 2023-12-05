@@ -56,10 +56,10 @@ jobs:
         run: sf org login jwt --instance-url https://login.salesforce.com --client-id ${{ vars.CLIENT_ID }} --username ${{ vars.USERNAME }} --jwt-key-file server.key --alias prodOrg
 
       - name: Resume sandbox creation process
-        run: sf org resume sandbox --name ${{ inputs.sandboxName }} --target-org prodOrg --wait ${{ inputs.wait }} --alias sdbx
+        run: sf org resume sandbox --name ${{ inputs.sandboxName }} --target-org prodOrg --wait ${{ inputs.wait }}
 
       - name: Create SysAdmin user
-        run: sf org create user email=${{ inputs.email }} generatepassword=true username=${{ inputs.email }} --set-unique-username profileName='System Administrator' --target-org sdbx --set-alias sdbxSysAdmin 
+        run: sf org create user email=${{ inputs.email }} generatepassword=true username=${{ inputs.email }} --set-unique-username profileName='System Administrator' --target-org ${{ vars.USERNAME }} --set-alias sdbxSysAdmin 
 
       - name: Post creation steps
         if: github.event.inputs.buildfile != ''
