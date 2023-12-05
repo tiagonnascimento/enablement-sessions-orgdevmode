@@ -1,33 +1,24 @@
-name: Sandbox creation
+name: Sandbox Resume Creation
 
 on:
   workflow_dispatch:
     inputs:
-      ref:
-        description: Reference that will be checkout to support post creation steps
-        type: string
-        required: true
       sandboxName: 
-        description: Name of the sandbox to be created
+        description: Name of the sandbox to have the creation resumed
         type: string
         required: true
-      licenseType:
-        description: Type of sandbox license. Could be Developer, Developer_Pro, Partial, and Full
-        type: choice
-        required: true
-        options:
-        - Developer
-        - Developer_Pro
-        - Partial
-        - Full
+      wait:
+        description: Wait time for sandbox creation - if process still didn't finalize
+        default: 30
+        type: string
       email:
         description: Email for the Sys Admin user 
         type: string
         required: true
-      wait:
-        description: Wait time for sandbox creation
-        default: 120
+      ref:
+        description: Reference that will be checkout to support post creation steps
         type: string
+        required: true
       buildfile:
         description: Path to the buildfile.json configured to run after sandbox creation - to automate post creation steps
         type: string
@@ -44,7 +35,7 @@ on:
 
 # Jobs to be executed
 jobs:
-  sandbox-creation:
+  sandbox-creation-resume:
     runs-on: ubuntu-latest
     container: tnascimento013/latam_salesforcedx_industries_orgdevmodebuilds:latest
     environment: prod
@@ -64,8 +55,8 @@ jobs:
       - name: Authenticate on production
         run: sf org login jwt --instance-url https://login.salesforce.com --client-id ${{ vars.CLIENT_ID }} --username ${{ vars.USERNAME }} --jwt-key-file server.key --alias prodOrg
 
-      - name: Create sandbox
-        run: sf org create sandbox --name ${{ inputs.sandboxName }} --license-type ${{ inputs.licenseType }} --alias sdbx --target-org prodOrg --wait ${{ inputs.wait }} --pool-interval 60
+      - name: Resume sandbox creation process
+        run: sf org resume sandbox --name ${{ inputs.sandboxName }} --target-org prodOrg --wait ${{ inputs.wait }} --alias sdbx
 
       - name: Create SysAdmin user
         run: sf org create user email=${{ inputs.email }} generatepassword=true username=${{ inputs.email }} --set-unique-username profileName='System Administrator' --target-org sdbx --set-alias sdbxSysAdmin 
