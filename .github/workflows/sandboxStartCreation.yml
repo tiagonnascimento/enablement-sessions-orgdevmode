@@ -23,8 +23,6 @@ jobs:
     runs-on: ubuntu-latest
     container: tnascimento013/latam_salesforcedx_industries_orgdevmodebuilds:latest
     environment: prod
-    outputs: 
-      createExitCode: 
     steps:
 
       - name: Extracting private key
