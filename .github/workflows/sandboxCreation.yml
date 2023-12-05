@@ -65,7 +65,7 @@ jobs:
         run: sf org login jwt --instance-url https://login.salesforce.com --client-id ${{ vars.CLIENT_ID }} --username ${{ vars.USERNAME }} --jwt-key-file server.key --alias prodOrg
 
       - name: Create sandbox
-        run: sf org create sandbox --name ${{ inputs.sandboxName }} --license-type ${{ inputs.licenseType }} --alias sdbx --target-org prodOrg --wait ${{ inputs.wait }} --pool-interval=60
+        run: sf org create sandbox --name ${{ inputs.sandboxName }} --license-type ${{ inputs.licenseType }} --alias sdbx --target-org prodOrg --wait ${{ inputs.wait }} --pool-interval 60
 
       - name: Create SysAdmin user
         run: sf org create user email=${{ inputs.email }} generatepassword=true username=${{ inputs.email }} --set-unique-username profileName='System Administrator' --target-org sdbx --set-alias sdbxSysAdmin 
