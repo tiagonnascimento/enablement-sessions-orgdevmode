@@ -66,9 +66,9 @@ jobs:
         id: getOrgInfo
         run: |
           echo ORG_INFO_RESULT="$(sf org display --target-org ${{ vars.USERNAME }}.${{ inputs.sandboxName }} --json)"
-          echo ORG_INFO_RESULT="${ORG_INFO_RESULT//'%'/'%25'}"
-          echo ORG_INFO_RESULT="${ORG_INFO_RESULT//$'\n'/'%0A'}"
-          echo ORG_INFO_RESULT="${ORG_INFO_RESULT//$'\r'/'%0D'}"
+          ORG_INFO_RESULT="${ORG_INFO_RESULT//'%'/'%25'}"
+          ORG_INFO_RESULT="${ORG_INFO_RESULT//$'\n'/'%0A'}"
+          ORG_INFO_RESULT="${ORG_INFO_RESULT//$'\r'/'%0D'}"
 
       - name: Getting Profile Id
         id: getProfileId
