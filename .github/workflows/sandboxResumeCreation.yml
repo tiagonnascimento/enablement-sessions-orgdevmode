@@ -63,13 +63,19 @@ jobs:
         run: sf org resume sandbox --name ${{ inputs.sandboxName }} --target-org prodOrg --wait ${{ inputs.wait }}
 
       - name: Getting org info
-        id: orgInfo
-        run: echo "ORG_INFO_RESULT=$(sf org display --target-org ${{ vars.USERNAME }}.${{ inputs.sandboxName }} --json)" >> $GITHUB_OUTPUT
+        id: getOrgInfo
+        run: |
+          echo "ORG_INFO_RESULT=$(sf org display --target-org ${{ vars.USERNAME }}.${{ inputs.sandboxName }} --json)" 
+
+      - name: Getting Profile Id
+        id: getProfileId
+        run: |
+          echo "PROFILE_ID_RESULT=$(curl ${{ fromJson(steps.getOrgInfo.outputs.ORG_INFO_RESULT).result.instanceUrl }}/services/data/v58.0/query?q=SELECT+Id+FROM+Profile+WHERE+Name='System+Administrator' -H 'Authorization Bearer ${{ fromJson(steps.getOrgInfo.outputs.ORG_INFO_RESULT).result.accessToken }}' -H 'Content-Type: application/json\')"
 
       - name: Creating User record
         id: createUser
         run: |
-          echo "USER_CREATE_RESULT=$(curl ${{ fromJson(steps.orgInfo.outputs.ORG_INFO_RESULT).result.instanceUrl }}/services/data/v59.0/sobjects/User/ -H 'Authorization Bearer ${{ fromJson(steps.orgInfo.outputs.ORG_INFO_RESULT).result.accessToken }}' -H 'Content-Type: application/json\' -X POST -d '{''Username'': ${{ inputs.username }},''FirstName'':''Sandbox'',''LastName'':''Owner'',''Email'': ${{ inputs.email }} ,''Alias'':''sbxown'',''TimeZoneSidKey'':''America/Sao_Paulo'',''LocaleSidKey'':''pt_BR'',''EmailEncodingKey'':''UTF-8'',''ProfileId'':''00eHp000002OQMuIAO'',''LanguageLocaleKey'':''en_US''}')" >> $GITHUB_OUTPUT
+          echo "USER_CREATE_RESULT=$(curl ${{ fromJson(steps.getOrgInfo.outputs.ORG_INFO_RESULT).result.instanceUrl }}/services/data/v59.0/sobjects/User/ -H 'Authorization Bearer ${{ fromJson(steps.getOrgInfo.outputs.ORG_INFO_RESULT).result.accessToken }}' -H 'Content-Type: application/json\' -X POST -d '{''Username'': ${{ inputs.username }},''FirstName'':''Sandbox'',''LastName'':''Owner'',''Email'': ${{ inputs.email }} ,''Alias'':''sbxown'',''TimeZoneSidKey'':''America/Sao_Paulo'',''LocaleSidKey'':''pt_BR'',''EmailEncodingKey'':''UTF-8'',''ProfileId'':''00eHp000002OQMuIAO'',''LanguageLocaleKey'':''en_US''}')"
 
       - name: Post creation steps
         if: github.event.inputs.buildfile != ''
