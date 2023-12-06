@@ -45,6 +45,9 @@ jobs:
     environment: prod
     steps:
 
+      - name: Installing missing CLIs / Plugins
+        run: echo "y" | sf plugins install sf-orgdevmode-builds
+
       - name: Set Directory as Safe 
         run: git config --system --add safe.directory "$GITHUB_WORKSPACE"
 
@@ -65,13 +68,12 @@ jobs:
       - name: Post creation steps
         if: github.event.inputs.buildfile != ''
         run: |
-          export HOME=/root
           sf builds deploy --buildfile ${{ inputs.buildfile }} --target-org ${{ vars.USERNAME }}.${{ inputs.sandboxName }}
 
-          - name: Getting org info
-          id: getOrgInfo
-          run: |
-            echo ORG_INFO_RESULT="$(sf org display --target-org ${{ vars.USERNAME }}.${{ inputs.sandboxName }} --json | sed 's/\\n/ /g' | tr -d '\n')" >> $GITHUB_OUTPUT
+      - name: Getting org info
+        id: getOrgInfo
+        run: |
+          echo ORG_INFO_RESULT="$(sf org display --target-org ${{ vars.USERNAME }}.${{ inputs.sandboxName }} --json | sed 's/\\n/ /g' | tr -d '\n')" >> $GITHUB_OUTPUT
   
       - name: Getting Profile Id
         id: getProfileId
