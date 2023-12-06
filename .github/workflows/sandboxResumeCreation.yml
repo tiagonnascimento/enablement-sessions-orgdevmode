@@ -64,12 +64,12 @@ jobs:
 
       - name: Getting org info
         id: orgInfo
-        run: echo "ORG_INFO=$(sf org display --target-org ${{ vars.USERNAME }}.${{ inputs.sandboxName }} --json)"
+        run: echo "ORG_INFO=$(sf org display --target-org ${{ vars.USERNAME }}.${{ inputs.sandboxName }} --json)" >> $GITHUB_OUTPUT
 
       - name: Creating User record
         id: createUser
         run: |
-          echo "USER_CREATE_RESULT=$(curl ${{ fromJson(steps.orgInfo.outputs.ORG_INFO).result.instanceUrl }}/services/data/v59.0/sobjects/User/ -H 'Authorization Bearer ${{ fromJson(steps.orgInfo.outputs.ORG_INFO).result.accessToken }}' -H 'Content-Type: application/json\' -X POST)"
+          echo "USER_CREATE_RESULT=$(curl ${{ fromJson(steps.orgInfo.outputs.ORG_INFO).result.instanceUrl }}/services/data/v59.0/sobjects/User/ -H 'Authorization Bearer ${{ fromJson(steps.orgInfo.outputs.ORG_INFO).result.accessToken }}' -H 'Content-Type: application/json\' -X POST -d '{''Username'': ${{ inputs.username }},''FirstName'':''Sandbox'',''LastName'':''Owner'',''Email'': ${{ inputs.email }} ,''Alias'':''sbxown'',''TimeZoneSidKey'':''America/Sao_Paulo'',''LocaleSidKey'':''pt_BR'',''EmailEncodingKey'':''UTF-8'',''ProfileId'':''00eHp000002OQMuIAO'',''LanguageLocaleKey'':''en_US''}')" >> $GITHUB_OUTPUT
 
       - name: Post creation steps
         if: github.event.inputs.buildfile != ''
