@@ -45,10 +45,10 @@ jobs:
     environment: prod
     steps:
 
-      - name: Installing missing CLIs / Plugins
+      - name: Installing missing CLIs / plugins
         run: echo "y" | sf plugins install sf-orgdevmode-builds
 
-      - name: Set Directory as Safe 
+      - name: Set directory as safe 
         run: git config --system --add safe.directory "$GITHUB_WORKSPACE"
 
       - name: "Checkout source code"
@@ -75,15 +75,38 @@ jobs:
         run: |
           echo ORG_INFO_RESULT="$(sf org display --target-org ${{ vars.USERNAME }}.${{ inputs.sandboxName }} --json | sed 's/\\n/ /g' | tr -d '\n')" >> $GITHUB_OUTPUT
   
-      - name: Getting Profile Id
+      - name: Getting ProfileId
         id: getProfileId
         run: |
           echo PROFILE_ID_RESULT="$(curl ${{ fromJson(steps.getOrgInfo.outputs.ORG_INFO_RESULT).result.instanceUrl }}/services/data/v58.0/query?q=SELECT+Id+FROM+Profile+WHERE+Name=\'System+Administrator\' -H 'Authorization: Bearer ${{ fromJson(steps.getOrgInfo.outputs.ORG_INFO_RESULT).result.accessToken }}' -H 'Content-Type: application/json')" >> $GITHUB_OUTPUT
 
+      - name: Check ProfileId query result 
+        if: ${{ !fromJson(steps.getProfileId.outputs.PROFILE_ID_RESULT).done }} 
+        run: |
+          echo "Error on querying for Sys Admin profile - please check the results of the last step."
+          exit 1
+          
       - name: Creating User record
         id: createUser
         run: |
-          echo "USER_CREATE_RESULT=$(curl ${{ fromJson(steps.getOrgInfo.outputs.ORG_INFO_RESULT).result.instanceUrl }}/services/data/v59.0/sobjects/User/ -H 'Authorization: Bearer ${{ fromJson(steps.getOrgInfo.outputs.ORG_INFO_RESULT).result.accessToken }}' -H 'Content-Type: application/json' -X POST -d '{"Username": "${{ inputs.username }}", "FirstName":"Sandbox", "LastName":"Owner", "Email": "${{ inputs.email }}", "Alias":"sbxown", "TimeZoneSidKey":"America/Sao_Paulo", "LocaleSidKey":"pt_BR", "EmailEncodingKey":"UTF-8", "ProfileId": "${{ fromJson(steps.getProfileId.outputs.PROFILE_ID_RESULT).records[0].Id }}", "LanguageLocaleKey":"en_US"}')" >> $GITHUB_OUTPUT
+          echo "CREATE_USER_RESULT=$(curl ${{ fromJson(steps.getOrgInfo.outputs.ORG_INFO_RESULT).result.instanceUrl }}/services/data/v59.0/sobjects/User/ -H 'Authorization: Bearer ${{ fromJson(steps.getOrgInfo.outputs.ORG_INFO_RESULT).result.accessToken }}' -H 'Content-Type: application/json' -X POST -d '{"Username": "${{ inputs.username }}", "FirstName":"Sandbox", "LastName":"Owner", "Email": "${{ inputs.email }}", "Alias":"sbxown", "TimeZoneSidKey":"America/Sao_Paulo", "LocaleSidKey":"pt_BR", "EmailEncodingKey":"UTF-8", "ProfileId": "${{ fromJson(steps.getProfileId.outputs.PROFILE_ID_RESULT).records[0].Id }}", "LanguageLocaleKey":"en_US"}')" >> $GITHUB_OUTPUT
+
+      - name: Check user creation result 
+        if: ${{ !fromJson(steps.createUser.outputs.CREATE_USER_RESULT).success }} 
+        run: |
+          echo "Error on creating user - please check the results of the last step."
+          exit 1
+
+      - name: Reset user password
+        id: resetPassword
+        run: |
+          echo "RESET_PASSWORD_RESULT=$(curl ${{ fromJson(steps.getOrgInfo.outputs.ORG_INFO_RESULT).result.instanceUrl }}/services/data/v59.0/sobjects/User/${{ fromJson(steps.createUser.outputs.CREATE_USER_RESULT).id }}/password -H 'Authorization: Bearer ${{ fromJson(steps.getOrgInfo.outputs.ORG_INFO_RESULT).result.accessToken }}' -H 'Content-Type: application/json' -X DELETE)" >> $GITHUB_OUTPUT
+
+      - name: Check password reset result 
+        if: ${{ !fromJson(steps.resetPassword.outputs.RESET_PASSWORD_RESULT).success }} 
+        run: |
+          echo "Error on reset password - please check the results of the last step."
+          exit 1
 
       - name: Retrieving Connected App Consumer Key
         if: github.event.inputs.connectedApp != ''
