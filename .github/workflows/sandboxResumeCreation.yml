@@ -12,7 +12,11 @@ on:
         default: 30
         type: string
       email:
-        description: Email for the Sys Admin user 
+        description: Email for the Sys Admin user to be created
+        type: string
+        required: true
+      username:
+        description: Username for the Sys Admin user to be created
         type: string
         required: true
       ref:
@@ -58,18 +62,13 @@ jobs:
       - name: Resume sandbox creation process
         run: sf org resume sandbox --name ${{ inputs.sandboxName }} --target-org prodOrg --wait ${{ inputs.wait }}
 
-      - name: Getting credential for user creation
-        id: credential
-        run: echo "ACCESS_TOKEN=$(sf org display --target-org ${{ vars.USERNAME }}.${{ inputs.sandboxName }} | grep -Po '(?<=Access Token\s\s\s\s\s).*')"
+      - name: Getting org info
+        id: orgInfo
+        run: echo "ORG_INFO=$(sf org display --target-org ${{ vars.USERNAME }}.${{ inputs.sandboxName }} --json)"
 
-      - name: Getting instance url for user creation
-        id: instanceUrl
-        run: echo "INSTANCE_URL=$(sf org display --target-org ${{ vars.USERNAME }}.${{ inputs.sandboxName }} | grep -Po '(?<=Instance Url\s\s\s\s\s).*')"
-      
-      - name: Create SysAdmin user
-        run: |
-          echo ${{ steps.credential.outputs.ACCESS_TOKEN }}
-          echo ${{ steps.instanceUrl.outputs.INSTANCE_URL }}
+      - name: Creating User record
+        id: createUser
+        run: echo "USER_CREATE_RESULT=$(curl ${{ fromJson(steps.orgInfo.outputs.ORG_INFO).result.instanceUrl }}/services/data/v59.0/sobjects/User/ -H \"Authorization Bearer ${{ fromJson(steps.orgInfo.outputs.ORG_INFO).result.accessToken }}\" -H \"Content-Type: application/json\" -X POST -d \"{''Username'': ${{ inputs.username }},''FirstName'':''Sandbox'',''LastName'':''Owner'',''Email'': ${{ inputs.email }} ,''Alias'':''sbxown'',''TimeZoneSidKey'':''America/Sao_Paulo'',''LocaleSidKey'':''pt_BR'',''EmailEncodingKey'':''UTF-8'',''ProfileId'':''00eHp000002OQMuIAO'',''LanguageLocaleKey'':''en_US''}\")"
 
       - name: Post creation steps
         if: github.event.inputs.buildfile != ''
