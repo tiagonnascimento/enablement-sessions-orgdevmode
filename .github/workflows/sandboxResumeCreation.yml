@@ -62,11 +62,17 @@ jobs:
       - name: Resume sandbox creation process
         run: sf org resume sandbox --name ${{ inputs.sandboxName }} --target-org prodOrg --wait ${{ inputs.wait }}
 
-      - name: Getting org info
-        id: getOrgInfo
+      - name: Post creation steps
+        if: github.event.inputs.buildfile != ''
         run: |
-          echo ORG_INFO_RESULT="$(sf org display --target-org ${{ vars.USERNAME }}.${{ inputs.sandboxName }} --json | sed 's/\\n/ /g' | tr -d '\n')" >> $GITHUB_OUTPUT
+          export HOME=/root
+          sf builds deploy --buildfile ${{ inputs.buildfile }} --target-org ${{ vars.USERNAME }}.${{ inputs.sandboxName }}
 
+          - name: Getting org info
+          id: getOrgInfo
+          run: |
+            echo ORG_INFO_RESULT="$(sf org display --target-org ${{ vars.USERNAME }}.${{ inputs.sandboxName }} --json | sed 's/\\n/ /g' | tr -d '\n')" >> $GITHUB_OUTPUT
+  
       - name: Getting Profile Id
         id: getProfileId
         run: |
@@ -75,16 +81,10 @@ jobs:
       - name: Creating User record
         id: createUser
         run: |
-          echo "USER_CREATE_RESULT=$(curl ${{ fromJson(steps.getOrgInfo.outputs.ORG_INFO_RESULT).result.instanceUrl }}/services/data/v59.0/sobjects/User/ -H 'Authorization: Bearer ${{ fromJson(steps.getOrgInfo.outputs.ORG_INFO_RESULT).result.accessToken }}' -H 'Content-Type: application/json' -X POST -d '{"Username": ${{ inputs.username }},"FirstName":"Sandbox","LastName":"Owner","Email": ${{ inputs.email }} ,"Alias":"sbxown","TimeZoneSidKey":"America/Sao_Paulo","LocaleSidKey":"pt_BR","EmailEncodingKey":"UTF-8","ProfileId": ${{ fromJson(steps.getProfileId.outputs.PROFILE_ID_RESULT).records[0].Id }},"LanguageLocaleKey":"en_US"}')" >> $GITHUB_OUTPUT
-
-      - name: Post creation steps
-        if: github.event.inputs.buildfile != ''
-        run: |
-          export HOME=/root
-          sf builds deploy --buildfile ${{ inputs.buildfile }} --target-org sdbxSysAdmin
+          echo "USER_CREATE_RESULT=$(curl ${{ fromJson(steps.getOrgInfo.outputs.ORG_INFO_RESULT).result.instanceUrl }}/services/data/v59.0/sobjects/User/ -H 'Authorization: Bearer ${{ fromJson(steps.getOrgInfo.outputs.ORG_INFO_RESULT).result.accessToken }}' -H 'Content-Type: application/json' -X POST -d '{"Username": "${{ inputs.username }}", "FirstName":"Sandbox", "LastName":"Owner", "Email": "${{ inputs.email }}", "Alias":"sbxown", "TimeZoneSidKey":"America/Sao_Paulo", "LocaleSidKey":"pt_BR", "EmailEncodingKey":"UTF-8", "ProfileId": "${{ fromJson(steps.getProfileId.outputs.PROFILE_ID_RESULT).records[0].Id }}", "LanguageLocaleKey":"en_US"}')" >> $GITHUB_OUTPUT
 
       - name: Retrieving Connected App Consumer Key
         if: github.event.inputs.connectedApp != ''
         run: |
-          sf project retrieve start --metadata=ConnectedApp:${{ inputs.connectedApp }} --target-org sdbxSysAdmin
+          sf project retrieve start --metadata=ConnectedApp:${{ inputs.connectedApp }} --target-org ${{ vars.USERNAME }}.${{ inputs.sandboxName }}
           cat ${{ inputs.defaultDirectory }}/main/default/connectedApps/${{ inputs.connectedApp }}.connectedApp-meta.xml | grep consumerKey
