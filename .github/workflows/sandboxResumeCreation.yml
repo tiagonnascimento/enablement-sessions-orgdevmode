@@ -75,7 +75,7 @@ jobs:
       - name: Creating User record
         id: createUser
         run: |
-          echo "USER_CREATE_RESULT=$(curl ${{ fromJson(steps.getOrgInfo.outputs.ORG_INFO_RESULT).result.instanceUrl }}/services/data/v59.0/sobjects/User/ -H 'Authorization: Bearer ${{ fromJson(steps.getOrgInfo.outputs.ORG_INFO_RESULT).result.accessToken }}' -H 'Content-Type: application/json' -X POST -d '{''Username'': ${{ inputs.username }},''FirstName'':''Sandbox'',''LastName'':''Owner'',''Email'': ${{ inputs.email }} ,''Alias'':''sbxown'',''TimeZoneSidKey'':''America/Sao_Paulo'',''LocaleSidKey'':''pt_BR'',''EmailEncodingKey'':''UTF-8'',''ProfileId'': ${{ fromJson(steps.getProfileId.outputs.PROFILE_ID_RESULT).records[0].Id }},''LanguageLocaleKey'':''en_US''}')" >> $GITHUB_OUTPUT
+          echo "USER_CREATE_RESULT=$(curl ${{ fromJson(steps.getOrgInfo.outputs.ORG_INFO_RESULT).result.instanceUrl }}/services/data/v59.0/sobjects/User/ -H 'Authorization: Bearer ${{ fromJson(steps.getOrgInfo.outputs.ORG_INFO_RESULT).result.accessToken }}' -H 'Content-Type: application/json' -X POST -d '{"Username": ${{ inputs.username }},"FirstName":"Sandbox","LastName":"Owner","Email": ${{ inputs.email }} ,"Alias":"sbxown","TimeZoneSidKey":"America/Sao_Paulo","LocaleSidKey":"pt_BR","EmailEncodingKey":"UTF-8","ProfileId": ${{ fromJson(steps.getProfileId.outputs.PROFILE_ID_RESULT).records[0].Id }},"LanguageLocaleKey":"en_US"}')" >> $GITHUB_OUTPUT
 
       - name: Post creation steps
         if: github.event.inputs.buildfile != ''
