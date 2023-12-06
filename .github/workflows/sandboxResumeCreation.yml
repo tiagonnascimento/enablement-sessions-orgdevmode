@@ -103,7 +103,7 @@ jobs:
           echo "RESET_PASSWORD_RESULT=$(curl ${{ fromJson(steps.getOrgInfo.outputs.ORG_INFO_RESULT).result.instanceUrl }}/services/data/v59.0/sobjects/User/${{ fromJson(steps.createUser.outputs.CREATE_USER_RESULT).id }}/password -H 'Authorization: Bearer ${{ fromJson(steps.getOrgInfo.outputs.ORG_INFO_RESULT).result.accessToken }}' -H 'Content-Type: application/json' -X DELETE)" >> $GITHUB_OUTPUT
 
       - name: Check password reset result 
-        if: ${{ !fromJson(steps.resetPassword.outputs.RESET_PASSWORD_RESULT).success }} 
+        if: ${{ fromJson(steps.resetPassword.outputs.RESET_PASSWORD_RESULT).NewPassword != '' }} 
         run: |
           echo "Error on reset password - please check the results of the last step."
           exit 1
