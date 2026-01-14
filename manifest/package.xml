@@ -3,8 +3,6 @@
 	<types>
 		<members>DummyClass</members>
 		<members>DummyClassTest</members>
-		<members>RiskAssessmentFlowController</members>
-		<members>RiskAssessmentFlowControllerTest</members>
 		<name>ApexClass</name>
 	</types>
 	<version>60.0</version>
