@@ -10,7 +10,7 @@ jobs:
   build-deploy:
     runs-on: ubuntu-latest
     container: tnascimento013/latam_salesforcedx_industries_orgdevmodebuilds:latest
-    environment: build
+    environment: prod
     steps:
 
       - name: Checkout source code
