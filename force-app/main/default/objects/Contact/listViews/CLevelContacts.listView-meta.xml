@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CLevelContacts</fullName>
+    <booleanFilter>1 or 2</booleanFilter>
+    <columns>FULL_NAME</columns>
+    <columns>ACCOUNT.NAME</columns>
+    <columns>CONTACT.TITLE</columns>
+    <columns>CONTACT.PHONE1</columns>
+    <columns>CONTACT.EMAIL</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>CONTACT.TITLE</field>
+        <operation>startsWith</operation>
+        <value>CEO,CFO,CIO,CTO,CMO</value>
+    </filters>
+    <filters>
+        <field>CONTACT.TITLE</field>
+        <operation>contains</operation>
+        <value>Chief</value>
+    </filters>
+    <label>C-Level Contacts</label>
+    <language>en_US</language>
+    <sharedTo>
+        <allInternalUsers></allInternalUsers>
+        <allPartnerUsers></allPartnerUsers>
+    </sharedTo>
+</ListView>

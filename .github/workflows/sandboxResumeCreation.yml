@@ -1,0 +1,115 @@
+name: Sandbox Resume Creation
+
+on:
+  workflow_dispatch:
+    inputs:
+      sandboxName: 
+        description: Name of the sandbox to have the creation resumed
+        type: string
+        required: true
+      wait:
+        description: Wait time for sandbox creation - if process still didn't finalize
+        default: 30
+        type: string
+      email:
+        description: Email for the Sys Admin user to be created
+        type: string
+        required: true
+      username:
+        description: Username for the Sys Admin user to be created
+        type: string
+        required: true
+      ref:
+        description: Reference that will be checkout to support post creation steps
+        type: string
+        required: true
+      buildfile:
+        description: Path to the buildfile.json configured to run after sandbox creation - to automate post creation steps
+        type: string
+        required: false
+      connectedApp:
+        description: API name for the connected app to be retrieved so the consumer key can be logged directly on the job - this is just used to facilitate the pipeline configuration if there sandbox needs to be connected by the CI server
+        type: string
+        required: false
+      defaultDirectory: 
+        description: Defatul directory as per sfdx-project.json - to be used to log the connected app consumer key
+        type: string
+        default: force-app
+        required: false
+
+# Jobs to be executed
+jobs:
+  sandbox-creation-resume:
+    runs-on: ubuntu-latest
+    container: tnascimento013/latam_salesforcedx_industries_orgdevmodebuilds:latest
+    environment: prod
+    steps:
+
+      - name: Installing missing CLIs / plugins
+        run: echo "y" | sf plugins install sf-orgdevmode-builds
+
+      - name: Set directory as safe 
+        run: git config --system --add safe.directory "$GITHUB_WORKSPACE"
+
+      - name: "Checkout source code"
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ inputs.ref }}
+
+      - name: Extracting private key
+        run: 'echo "${{ secrets.JWT_KEY_PROD }}" > server.key'
+
+      - name: Authenticate on production
+        run: sf org login jwt --instance-url https://login.salesforce.com --client-id ${{ vars.CLIENT_ID }} --username ${{ vars.USERNAME }} --jwt-key-file server.key --alias prodOrg
+
+      - name: Resume sandbox creation process
+        run: sf org resume sandbox --name ${{ inputs.sandboxName }} --target-org prodOrg --wait ${{ inputs.wait }}
+
+      - name: Post creation steps
+        if: github.event.inputs.buildfile != ''
+        run: |
+          sf builds deploy --buildfile ${{ inputs.buildfile }} --target-org ${{ vars.USERNAME }}.${{ inputs.sandboxName }}
+
+      - name: Getting org info
+        id: getOrgInfo
+        run: |
+          echo ORG_INFO_RESULT="$(sf org display --target-org ${{ vars.USERNAME }}.${{ inputs.sandboxName }} --json | sed 's/\\n/ /g' | tr -d '\n')" >> $GITHUB_OUTPUT
+  
+      - name: Getting ProfileId
+        id: getProfileId
+        run: |
+          echo PROFILE_ID_RESULT="$(curl ${{ fromJson(steps.getOrgInfo.outputs.ORG_INFO_RESULT).result.instanceUrl }}/services/data/v58.0/query?q=SELECT+Id+FROM+Profile+WHERE+Name=\'System+Administrator\' -H 'Authorization: Bearer ${{ fromJson(steps.getOrgInfo.outputs.ORG_INFO_RESULT).result.accessToken }}' -H 'Content-Type: application/json')" >> $GITHUB_OUTPUT
+
+      - name: Check ProfileId query result 
+        if: ${{ !fromJson(steps.getProfileId.outputs.PROFILE_ID_RESULT).done }} 
+        run: |
+          echo "Error on querying for Sys Admin profile - please check the results of the last step."
+          exit 1
+          
+      - name: Creating User record
+        id: createUser
+        run: |
+          echo "CREATE_USER_RESULT=$(curl ${{ fromJson(steps.getOrgInfo.outputs.ORG_INFO_RESULT).result.instanceUrl }}/services/data/v59.0/sobjects/User/ -H 'Authorization: Bearer ${{ fromJson(steps.getOrgInfo.outputs.ORG_INFO_RESULT).result.accessToken }}' -H 'Content-Type: application/json' -X POST -d '{"Username": "${{ inputs.username }}", "FirstName":"Sandbox", "LastName":"Owner", "Email": "${{ inputs.email }}", "Alias":"sbxown", "TimeZoneSidKey":"America/Sao_Paulo", "LocaleSidKey":"pt_BR", "EmailEncodingKey":"UTF-8", "ProfileId": "${{ fromJson(steps.getProfileId.outputs.PROFILE_ID_RESULT).records[0].Id }}", "LanguageLocaleKey":"en_US"}')" >> $GITHUB_OUTPUT
+
+      - name: Check user creation result 
+        if: ${{ !fromJson(steps.createUser.outputs.CREATE_USER_RESULT).success }} 
+        run: |
+          echo "Error on creating user - please check the results of the last step."
+          exit 1
+
+      - name: Reset user password
+        id: resetPassword
+        run: |
+          echo "RESET_PASSWORD_RESULT=$(curl ${{ fromJson(steps.getOrgInfo.outputs.ORG_INFO_RESULT).result.instanceUrl }}/services/data/v59.0/sobjects/User/${{ fromJson(steps.createUser.outputs.CREATE_USER_RESULT).id }}/password -H 'Authorization: Bearer ${{ fromJson(steps.getOrgInfo.outputs.ORG_INFO_RESULT).result.accessToken }}' -H 'Content-Type: application/json' -X DELETE)" >> $GITHUB_OUTPUT
+
+      - name: Check password reset result 
+        if: ${{ fromJson(steps.resetPassword.outputs.RESET_PASSWORD_RESULT).NewPassword == '' }} 
+        run: |
+          echo "Error on reset password - please check the results of the last step."
+          exit 1
+
+      - name: Retrieving Connected App Consumer Key
+        if: github.event.inputs.connectedApp != ''
+        run: |
+          sf project retrieve start --metadata=ConnectedApp:${{ inputs.connectedApp }} --target-org ${{ vars.USERNAME }}.${{ inputs.sandboxName }}
+          cat ${{ inputs.defaultDirectory }}/main/default/connectedApps/${{ inputs.connectedApp }}.connectedApp-meta.xml | grep consumerKey

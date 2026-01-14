@@ -3,7 +3,7 @@
     {
       "type": "metadata",
       "manifestFile": "manifest/package.xml",
-      "testLevel": "RunLocalTests",
+      "testLevel": "RunSpecifiedTests",
       "classPath": "force-app/main/default/classes",
       "timeout": "33",
       "ignoreWarnings": true

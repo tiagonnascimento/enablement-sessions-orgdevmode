@@ -3,5 +3,17 @@
     "**/node_modules": true,
     "**/bower_components": true,
     "**/.sfdx": true
+  },
+  "salesforcedx-vscode-core.show-cli-success-msg": false,
+  "vlocity.sfdxUsername": "fschiozer@rambobelt.corp",
+  "vlocity.projectPath": "/Users/fschiozer/Documents/Training/CICD/enablement-sessions-orgdevmode/datapacks",
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    "**/Thumbs.db": true,
+    ".mule": true
   }
 }

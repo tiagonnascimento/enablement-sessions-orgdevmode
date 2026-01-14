@@ -1,0 +1,18 @@
+projectPath: .
+expansionPath: ./datapacks/
+manifest:
+  - DataRaptor/sampleGetAccountDetailsDRExtract
+  - DataRaptor/samplePostXformWeather
+  - IntegrationProcedure/sample_getWeatherForecast
+  - VlocityCard/enablementAccountHello
+  - VlocityCard/sampleWeatherForecast
+  - VlocityCard/sampleWeather
+delete: true
+activate: true
+compileOnBuild: true
+maxDepth: -1
+continueAfterError: true
+useAllRelationships: false
+supportHeadersOnly: true
+supportForceDeploy: true
+npmAuthKey: Y3VzdG9tZXJfYmFuY29fZGVsX2VzdGFkb19kZV9jaGlsZTpQZkFhYlJaQmhyNU1DMVRY

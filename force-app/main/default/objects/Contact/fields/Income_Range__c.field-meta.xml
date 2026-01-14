@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Income_Range__c</fullName>
+    <externalId>false</externalId>
+    <label>Income Range</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>$25,000 to $29,999</fullName>
+                <default>false</default>
+                <label>$25,000 to $29,999</label>
+            </value>
+            <value>
+                <fullName>$30,000 to $34,999</fullName>
+                <default>false</default>
+                <label>$30,000 to $34,999</label>
+            </value>
+            <value>
+                <fullName>$35,000 to $39,999</fullName>
+                <default>false</default>
+                <label>$35,000 to $39,999</label>
+            </value>
+            <value>
+                <fullName>$40,000 to $44,999</fullName>
+                <default>false</default>
+                <label>$40,000 to $44,999</label>
+            </value>
+            <value>
+                <fullName>$45,000 to $49,999</fullName>
+                <default>false</default>
+                <label>$45,000 to $49,999</label>
+            </value>
+            <value>
+                <fullName>$50,000 to $59,999</fullName>
+                <default>false</default>
+                <label>$50,000 to $59,999</label>
+            </value>
+            <value>
+                <fullName>$60,000 to $74,999</fullName>
+                <default>false</default>
+                <label>$60,000 to $74,999</label>
+            </value>
+            <value>
+                <fullName>$75,000 to $99,999</fullName>
+                <default>false</default>
+                <label>$75,000 to $99,999</label>
+            </value>
+            <value>
+                <fullName>$100,000 to $124,999</fullName>
+                <default>false</default>
+                <label>$100,000 to $124,999</label>
+            </value>
+            <value>
+                <fullName>$125,000 to $149,999</fullName>
+                <default>false</default>
+                <label>$125,000 to $149,999</label>
+            </value>
+            <value>
+                <fullName>$150,000 to $199,999</fullName>
+                <default>false</default>
+                <label>$150,000 to $199,999</label>
+            </value>
+            <value>
+                <fullName>$200,000 or more</fullName>
+                <default>false</default>
+                <label>$200,000 or more</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

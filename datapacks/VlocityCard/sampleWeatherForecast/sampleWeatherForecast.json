@@ -1,0 +1,380 @@
+{
+    "dataSource": {
+        "contextVariables": [
+            {
+                "id": 7,
+                "name": "recordId",
+                "val": "0015e0000039li3AAA"
+            }
+        ],
+        "orderBy": {
+            "isReverse": false,
+            "name": ""
+        },
+        "type": "IntegrationProcedures",
+        "value": {
+            "inputMap": {
+                "AccountId": "{recordId}",
+                "Days": "5"
+            },
+            "ipMethod": "team_getWeatherForecast",
+            "resultVar": "[\"Forecast\"]",
+            "vlocityAsync": false
+        }
+    },
+    "enableLwc": true,
+    "isFlex": true,
+    "isRepeatable": false,
+    "lwc": {
+        "DeveloperName": "cfSampleWeatherForecast_1_VU",
+        "Id": "0Rb5e000000Uc5ICAS",
+        "ManageableState": "unmanaged",
+        "MasterLabel": "cfSampleWeatherForecast_1_VU",
+        "NamespacePrefix": "c"
+    },
+    "states": [
+        {
+            "actions": [
+            ],
+            "childCards": [
+            ],
+            "components": {
+                "layer-0": {
+                    "children": [
+                        {
+                            "children": [
+                                {
+                                    "class": "slds-col ",
+                                    "element": "flexIcon",
+                                    "elementLabel": "Icon",
+                                    "key": "element_element_block_0_0_flexIcon_0_0",
+                                    "name": "Icon",
+                                    "parentElementKey": "element_block_0_0",
+                                    "property": {
+                                        "color": "#3A6D9D",
+                                        "extraclass": "",
+                                        "iconName": "standard:forecasts",
+                                        "iconType": "Salesforce SVG",
+                                        "imgsrc": "",
+                                        "record": "{record}",
+                                        "size": "large",
+                                        "variant": "default"
+                                    },
+                                    "size": {
+                                        "default": "12",
+                                        "isResponsive": false
+                                    },
+                                    "stateIndex": 0,
+                                    "styleObject": {
+                                        "background": {
+                                            "color": "",
+                                            "image": "",
+                                            "position": "",
+                                            "repeat": "",
+                                            "size": ""
+                                        },
+                                        "border": {
+                                            "color": "",
+                                            "radius": "",
+                                            "style": "",
+                                            "type": "",
+                                            "width": ""
+                                        },
+                                        "class": "slds-text-align_center ",
+                                        "container": {
+                                            "class": ""
+                                        },
+                                        "elementStyleProperties": {
+                                            "color": "#3A6D9D"
+                                        },
+                                        "inlineStyle": "",
+                                        "margin": [
+                                        ],
+                                        "padding": [
+                                        ],
+                                        "size": {
+                                            "default": "12",
+                                            "isResponsive": false
+                                        },
+                                        "sizeClass": "slds-size_12-of-12 ",
+                                        "style": "             ",
+                                        "text": {
+                                            "align": "center",
+                                            "color": ""
+                                        }
+                                    },
+                                    "type": "element",
+                                    "userUpdatedElementLabel": true
+                                }
+                            ],
+                            "class": "slds-col ",
+                            "element": "block",
+                            "elementLabel": "Block-0",
+                            "name": "Block",
+                            "property": {
+                                "card": "{card}",
+                                "collapsedByDefault": false,
+                                "collapsible": false,
+                                "label": "Block",
+                                "record": "{record}"
+                            },
+                            "size": {
+                                "default": "2",
+                                "isResponsive": false
+                            },
+                            "stateIndex": 0,
+                            "styleObject": {
+                                "background": {
+                                    "color": "",
+                                    "image": "",
+                                    "position": "",
+                                    "repeat": "",
+                                    "size": ""
+                                },
+                                "border": {
+                                    "color": "",
+                                    "radius": "",
+                                    "style": "",
+                                    "type": "",
+                                    "width": ""
+                                },
+                                "class": "slds-p-around_x-small ",
+                                "container": {
+                                    "class": ""
+                                },
+                                "elementStyleProperties": {
+                                },
+                                "inlineStyle": "",
+                                "margin": [
+                                ],
+                                "padding": [
+                                    {
+                                        "label": "around:x-small",
+                                        "size": "x-small",
+                                        "type": "around"
+                                    }
+                                ],
+                                "size": {
+                                    "default": "2",
+                                    "isResponsive": false
+                                },
+                                "sizeClass": "slds-size_2-of-12 ",
+                                "style": "             ",
+                                "text": {
+                                    "align": "",
+                                    "color": ""
+                                }
+                            },
+                            "type": "block"
+                        },
+                        {
+                            "children": [
+                                {
+                                    "class": "slds-col ",
+                                    "element": "dataTable",
+                                    "elementLabel": "Forecast Datatable",
+                                    "key": "element_element_block_1_0_dataTable_0_0",
+                                    "name": "Datatable",
+                                    "parentElementKey": "element_block_1_0",
+                                    "property": {
+                                        "cellLevelEdit": true,
+                                        "columns": [
+                                            {
+                                                "fieldName": "Date",
+                                                "format": "M/D/YYYY",
+                                                "label": "Date",
+                                                "searchable": false,
+                                                "sortable": true,
+                                                "type": "date"
+                                            },
+                                            {
+                                                "fieldName": "Condition",
+                                                "label": "Condition",
+                                                "searchable": false,
+                                                "sortable": true,
+                                                "type": "text"
+                                            },
+                                            {
+                                                "fieldName": "HiLoTempF",
+                                                "label": "Hi/Lo Temp °F",
+                                                "searchable": false,
+                                                "sortable": true,
+                                                "type": "text"
+                                            }
+                                        ],
+                                        "groupOrder": "asc",
+                                        "issearchavailable": false,
+                                        "issortavailable": true,
+                                        "pagelimit": 3,
+                                        "records": "{records}",
+                                        "styles": {
+                                            "cellMargin": [
+                                            ],
+                                            "cellPadding": [
+                                            ],
+                                            "headFontWeight": "bold"
+                                        }
+                                    },
+                                    "size": {
+                                        "default": "12",
+                                        "isResponsive": false
+                                    },
+                                    "stateIndex": 0,
+                                    "styleObject": {
+                                        "background": {
+                                            "color": "",
+                                            "image": "",
+                                            "position": "",
+                                            "repeat": "",
+                                            "size": ""
+                                        },
+                                        "border": {
+                                            "color": "",
+                                            "radius": "",
+                                            "style": "",
+                                            "type": "",
+                                            "width": ""
+                                        },
+                                        "container": {
+                                            "class": ""
+                                        },
+                                        "elementStyleProperties": {
+                                            "styles": {
+                                                "cellMargin": [
+                                                ],
+                                                "cellPadding": [
+                                                ],
+                                                "headFontWeight": "bold"
+                                            }
+                                        },
+                                        "inlineStyle": "",
+                                        "margin": [
+                                        ],
+                                        "padding": [
+                                        ],
+                                        "size": {
+                                            "default": "12",
+                                            "isResponsive": false
+                                        },
+                                        "sizeClass": "slds-size_12-of-12",
+                                        "text": {
+                                            "align": "",
+                                            "color": ""
+                                        }
+                                    },
+                                    "type": "element",
+                                    "userUpdatedElementLabel": true
+                                }
+                            ],
+                            "class": "slds-col ",
+                            "element": "block",
+                            "elementLabel": "5-Day Forecast",
+                            "name": "Block",
+                            "property": {
+                                "card": "{card}",
+                                "collapsedByDefault": false,
+                                "collapsible": false,
+                                "label": "Block",
+                                "record": "{record}"
+                            },
+                            "size": {
+                                "default": "10",
+                                "isResponsive": false
+                            },
+                            "stateIndex": 0,
+                            "styleObject": {
+                                "background": {
+                                    "color": "",
+                                    "image": "",
+                                    "position": "",
+                                    "repeat": "",
+                                    "size": ""
+                                },
+                                "border": {
+                                    "color": "",
+                                    "radius": "",
+                                    "style": "",
+                                    "type": "",
+                                    "width": ""
+                                },
+                                "class": "slds-p-around_x-small ",
+                                "container": {
+                                    "class": ""
+                                },
+                                "elementStyleProperties": {
+                                },
+                                "inlineStyle": "",
+                                "margin": [
+                                ],
+                                "padding": [
+                                    {
+                                        "label": "around:x-small",
+                                        "size": "x-small",
+                                        "type": "around"
+                                    }
+                                ],
+                                "size": {
+                                    "default": "10",
+                                    "isResponsive": false
+                                },
+                                "sizeClass": "slds-size_10-of-12 ",
+                                "style": "             ",
+                                "text": {
+                                    "align": "",
+                                    "color": ""
+                                }
+                            },
+                            "type": "block",
+                            "userUpdatedElementLabel": true
+                        }
+                    ]
+                }
+            },
+            "conditions": {
+                "group": [
+                ],
+                "id": "state-condition-object",
+                "isParent": true
+            },
+            "definedActions": {
+                "actions": [
+                ]
+            },
+            "documents": [
+            ],
+            "fields": [
+            ],
+            "isSmartAction": false,
+            "name": "Active",
+            "omniscripts": [
+            ],
+            "smartAction": {
+            },
+            "styleObject": {
+                "class": "slds-card slds-p-around_x-small slds-m-bottom_x-small",
+                "container": {
+                    "class": "slds-card"
+                },
+                "margin": [
+                    {
+                        "size": "none",
+                        "type": "around"
+                    }
+                ],
+                "padding": [
+                    {
+                        "size": "x-small",
+                        "type": "around"
+                    }
+                ],
+                "size": {
+                    "default": "12",
+                    "isResponsive": false
+                },
+                "sizeClass": "slds-size_12-of-12"
+            }
+        }
+    ],
+    "theme": "slds",
+    "title": "sampleWeatherForecast"
+}

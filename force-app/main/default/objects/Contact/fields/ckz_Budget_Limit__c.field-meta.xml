@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ckz_Budget_Limit__c</fullName>
+    <externalId>false</externalId>
+    <inlineHelpText>Leave blank or set to zero to reflect no budget limit.</inlineHelpText>
+    <label>Budget Limit</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Currency</type>
+</CustomField>
