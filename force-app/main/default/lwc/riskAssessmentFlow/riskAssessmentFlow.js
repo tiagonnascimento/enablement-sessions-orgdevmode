@@ -295,3 +295,4 @@ export default class RiskAssessmentFlow extends NavigationMixin(LightningElement
         }
     }
 }
+

@@ -276,3 +276,4 @@ public class RiskAssessmentFlowController {
         @AuraEnabled public String phone {get; set;}
     }
 }
+
