@@ -3,7 +3,7 @@ name: Branch develop - on pull request
 on:
   pull_request:
     branches:
-      - develop
+      - develop_temp
 
 # Jobs to be executed
 jobs:
